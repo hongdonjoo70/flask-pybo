@@ -30,10 +30,25 @@
     {% endfor %}
     <!-- 답변 등록 -->
     <form action="{{ url_for('answer.create', question_id=question.id) }}" method="post" class="my-3">
+        {{ form.csrf_token() }}
         <div class="mb-3">
-            <textarea name="content" id="content" class="form-control" rows="10"></textarea>
+            {{ form.content.label }}
+            {{ form.content(class="form-control", rows="10") }}
         </div>
-        <input type="submit" value="답변등록" class="btn btn-primary">
+        {{ form.submit(class="btn btn-primary") }}
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            A simple ErrorMessage
+            {% for field,errors in form.errors.items() %}
+              <strong>{{ form[field].label }}</strong>
+              <ul>
+              {% for error in errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+              </ul>
+            {% endfor %}
+        </div>
+        {% endif %}
     </form>
 </div>
 {% endblock %}

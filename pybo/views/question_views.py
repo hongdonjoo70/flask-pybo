@@ -3,7 +3,7 @@ from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, url_for
 
 from pybo import db
-from pybo.forms import QuestionForm
+from pybo.forms import QuestionForm, AnswerForm
 from pybo.models import Question
 
 bp = Blueprint('question', __name__, url_prefix='/question')
@@ -11,12 +11,16 @@ bp = Blueprint('question', __name__, url_prefix='/question')
 @bp.route('/list')
 def _list():
     question_list = Question.query.order_by(Question.create_date.desc())
+    page = request.args.get('page', default=1, type=int)
+    question_list = question_list.paginate(page=page, per_page=10)
     return render_template('question/question_list.html', question_list=question_list)
 
 @bp.route('/detail/<int:question_id>')
 def detail(question_id):
+    form=AnswerForm()
     question = Question.query.get_or_404(question_id)
-    return render_template('question/question_detail.html', question=question)
+    # return render_template('question/question_detail.html', question=question,form=form)
+    return render_template('question/question_detail.html', question=question,form=form)
 
 @bp.route('/create',methods=['GET','POST'])
 def create():
