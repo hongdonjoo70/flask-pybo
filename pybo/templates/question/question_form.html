@@ -13,19 +13,8 @@
 
     {{ form.submit(class="btn btn-primary my-3") }}
     <!-- Error list -->
-    {% if form.errors %}
-    <div class="alert alert-danger" role="alert">
-      A simple ErrorMessage
-      {% for field,errors in form.errors.items() %}
-        <strong>{{ form[field].label }}</strong>
-        <ul>
-        {% for error in errors %}
-          <li>{{ error }}</li>
-        {% endfor %}
-        </ul>
-      {% endfor %}
-    </div>
-    {% endif %}
+    {% include "form_errors.html" %}
+
   </form>
 </div>
 {% endblock %}
