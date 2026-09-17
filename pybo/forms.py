@@ -18,3 +18,8 @@ class UserCreateForm(FlaskForm):
     password2 = PasswordField("비밀번호확인", validators=[DataRequired()])
     email=EmailField("이메일",validators=[DataRequired(),Email()])
     submit=SubmitField("저장하기")
+
+class UserLoginForm(FlaskForm):
+    username=StringField("사용자 이름",validators=[DataRequired(),Length(3,25)])
+    password = PasswordField("비밀번호", validators=[DataRequired()])
+    submit = SubmitField("저장하기")
