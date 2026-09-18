@@ -9,7 +9,7 @@ class QuestionForm(FlaskForm):
     submit=SubmitField("저장하기")
 
 class AnswerForm(FlaskForm):
-    content=TextAreaField("내용",validators=[DataRequired("내용은 필수입니다.")])
+    content=TextAreaField("답변내용",validators=[DataRequired("내용은 필수입니다.")])
     submit=SubmitField("답변등록")
 
 class UserCreateForm(FlaskForm):
